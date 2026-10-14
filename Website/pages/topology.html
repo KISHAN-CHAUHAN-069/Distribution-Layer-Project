@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packet Tracer Topology & Lab | Distribution Layer Project</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        <div class="brand-icon">D</div>
+        <span>Distribution Layer Project</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="project.html" class="nav-link">Project Overview</a></li>
+        <li><a href="architecture.html" class="nav-link">Architecture</a></li>
+        <li><a href="vlan.html" class="nav-link">VLAN & Subnets</a></li>
+        <li><a href="topology.html" class="nav-link active">Topology & Lab</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-wrapper">
+
+    <div class="section-header">
+      <div class="badge badge-cyan" style="margin-bottom: 8px;">Cisco Packet Tracer Lab Environment</div>
+      <h1>Interactive Network Topology & Switch Inspector</h1>
+      <p>Explore the physical switch wiring, click device nodes to inspect Cisco IOS parameters, and simulate packet flow.</p>
+    </div>
+
+    <!-- Topology Visual & Node Inspector Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; margin-bottom: 2.5rem;">
+
+      <!-- Left Column: Packet Tracer Topology Graphic & Node Selector -->
+      <div class="card" style="padding: 1.5rem;">
+        <h3 class="card-title" style="margin-bottom: 1rem;">
+          🖥️ Cisco Packet Tracer Topology Diagram
+        </h3>
+        
+        <!-- Topology Screenshot Container -->
+        <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-glow); box-shadow: 0 0 25px rgba(0, 243, 255, 0.1); margin-bottom: 1.25rem;">
+          <img src="../assets/images/topology.png" alt="Cisco Packet Tracer Network Topology" style="width: 100%; height: auto; display: block;">
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Select a network device below to inspect its Layer 2 / Layer 3 attributes, IP interfaces, and role:
+        </p>
+
+        <!-- Node Selector Buttons -->
+        <div class="device-nodes-grid">
+          <button class="node-btn active" data-device="dist-switch">
+            <span class="node-dot"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">SW-DIST-01</div>
+              <div style="font-size: 0.75rem; color: var(--accent-cyan);">Distribution Switch</div>
+            </div>
+          </button>
+
+          <button class="node-btn" data-device="core-router">
+            <span class="node-dot" style="background: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber);"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">R-CORE-01</div>
+              <div style="font-size: 0.75rem; color: var(--accent-amber);">Core Router</div>
+            </div>
+          </button>
+
+          <button class="node-btn" data-device="access-sw1">
+            <span class="node-dot" style="background: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue);"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">SW-ACCESS-01</div>
+              <div style="font-size: 0.75rem; color: var(--accent-blue);">Access Switch 1</div>
+            </div>
+          </button>
+
+          <button class="node-btn" data-device="access-sw2">
+            <span class="node-dot" style="background: var(--accent-purple); box-shadow: 0 0 8px var(--accent-purple);"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">SW-ACCESS-02</div>
+              <div style="font-size: 0.75rem; color: var(--accent-purple);">Access Switch 2</div>
+            </div>
+          </button>
+
+          <button class="node-btn" data-device="pc-student">
+            <span class="node-dot" style="background: var(--accent-blue);"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">PC-STUDENT-01</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">VLAN 10 Endpoint</div>
+            </div>
+          </button>
+
+          <button class="node-btn" data-device="pc-faculty">
+            <span class="node-dot" style="background: var(--accent-emerald);"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">PC-FACULTY-01</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">VLAN 20 Endpoint</div>
+            </div>
+          </button>
+
+          <button class="node-btn" data-device="server-admin">
+            <span class="node-dot" style="background: var(--accent-purple);"></span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.85rem;">SRV-ADMIN-01</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">VLAN 30 Server</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Live Device Details Inspector Card -->
+      <div class="card" id="device-details-card" style="height: fit-content;">
+        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 12px;">
+          <span class="badge badge-cyan" style="margin-bottom: 6px;">Distribution Layer (Primary Focus)</span>
+          <h3 style="font-size: 1.3rem; color: var(--text-primary);">Multilayer Distribution Switch (SW-DIST-01)</h3>
+          <p style="font-size: 0.85rem; color: var(--accent-cyan); font-family: var(--font-code);">Cisco Catalyst 3650 | IP: SVI Gateways</p>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 12px;">
+          Centralized Inter-VLAN Routing engine using Switched Virtual Interfaces (SVIs) and 802.1Q trunk termination.
+        </p>
+        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: var(--radius-sm); font-size: 0.85rem; font-family: var(--font-code);">
+          <div><strong>Active Interfaces:</strong> Gi0/1 (Trunk), Gi0/2 (Trunk), Gi0/24 (Core)</div>
+          <div><strong>Assigned VLANs:</strong> VLAN 10, VLAN 20, VLAN 30</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Interactive ICMP Packet Flow Simulator -->
+    <div class="card" style="margin-bottom: 2.5rem; background: radial-gradient(circle at 0% 0%, rgba(0, 243, 255, 0.08) 0%, transparent 60%);">
+      <h3 class="card-title" style="color: var(--accent-cyan);">
+        📡 Live Inter-VLAN Packet Flow Simulator
+      </h3>
+      <p class="card-desc">Simulate an ICMP Echo Request (Ping) traversing from an Access Switch host through the Distribution Layer SVI gateway to another subnet.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+        <div>
+          <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Source Host:</label>
+          <select id="ping-src" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); background: #000; color: #fff; border: 1px solid var(--border-color); font-family: var(--font-code);">
+            <option value="192.168.10.10 (PC-STUDENT-01 - VLAN 10)">PC-STUDENT-01 (192.168.10.10)</option>
+            <option value="192.168.20.10 (PC-FACULTY-01 - VLAN 20)">PC-FACULTY-01 (192.168.20.10)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Destination Host:</label>
+          <select id="ping-dst" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); background: #000; color: #fff; border: 1px solid var(--border-color); font-family: var(--font-code);">
+            <option value="192.168.20.10 (PC-FACULTY-01 - VLAN 20)">PC-FACULTY-01 (192.168.20.10)</option>
+            <option value="192.168.30.10 (SRV-ADMIN-01 - VLAN 30)">SRV-ADMIN-01 (192.168.30.10)</option>
+          </select>
+        </div>
+
+        <div style="display: flex; align-items: flex-end;">
+          <button id="ping-sim-btn" class="btn btn-primary" style="width: 100%;">▶ Run Ping Simulation</button>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: 0;">
+        <div class="code-header">Cisco Packet Tracer Simulation Mode Log Output</div>
+        <div id="ping-console-log" class="code-content" style="min-height: 120px; color: var(--accent-cyan);">
+          Press "Run Ping Simulation" above to trace ICMP frame traversal across the Distribution Layer switch...
+        </div>
+      </div>
+    </div>
+
+    <!-- Cisco IOS CLI Script Viewers -->
+    <div class="section-header">
+      <h2>Cisco IOS Configuration Scripts</h2>
+      <p>Actual CLI command blocks configured in Cisco Packet Tracer switches.</p>
+    </div>
+
+    <!-- Script 1: SVI Routing -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <span class="badge badge-cyan" style="width: fit-content; margin-bottom: 8px;">Cisco-Packet-Tracer/configurations/routing-config.txt</span>
+      <h3 class="card-title">1. Layer 3 Distribution Switch SVI Routing</h3>
+      <div class="code-block">
+        <div class="code-header">SW-DIST-01 Configuration (Layer 3 Switch)</div>
+        <div class="code-content">enable
+configure terminal
+hostname SW-DIST-01
+
+! Enable Layer 3 Routing
+ip routing
+
+! Configure Switched Virtual Interfaces (SVIs)
+interface Vlan10
+ description Students Default Gateway
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+exit
+
+interface Vlan20
+ description Faculty Default Gateway
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+exit
+
+interface Vlan30
+ description Administration Default Gateway
+ ip address 192.168.30.1 255.255.255.0
+ no shutdown
+exit</div>
+      </div>
+    </div>
+
+    <!-- Script 2: Trunking -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <span class="badge badge-emerald" style="width: fit-content; margin-bottom: 8px;">Cisco-Packet-Tracer/configurations/trunk-config.txt</span>
+      <h3 class="card-title">2. IEEE 802.1Q Switchport Trunking</h3>
+      <div class="code-block">
+        <div class="code-header">Trunk Link Configuration (SW-ACCESS-01 & SW-DIST-01)</div>
+        <div class="code-content">interface GigabitEthernet 0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ description 802.1Q Uplink to Distribution Switch
+ no shutdown
+exit</div>
+      </div>
+    </div>
+
+    <!-- Script 3: VLAN Creation -->
+    <div class="card">
+      <span class="badge badge-blue" style="width: fit-content; margin-bottom: 8px;">Cisco-Packet-Tracer/configurations/vlan-config.txt</span>
+      <h3 class="card-title">3. Access Switch VLAN & Switchport Assignment</h3>
+      <div class="code-block">
+        <div class="code-header">Access Switch Configuration (SW-ACCESS-01)</div>
+        <div class="code-content">vlan 10
+ name Students
+vlan 20
+ name Faculty
+vlan 30
+ name Administration
+exit
+
+interface range FastEthernet 0/1 - 10
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface range FastEthernet 0/11 - 18
+ switchport mode access
+ switchport access vlan 20
+exit</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div><strong>Demonstration of Distribution Layer Functions Using Cisco Packet Tracer</strong></div>
+      <div><a href="../index.html">Back to Home</a></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

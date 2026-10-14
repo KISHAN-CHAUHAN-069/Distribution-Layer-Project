@@ -1,0 +1,87 @@
+! =================================================================
+! CISCO PACKET TRACER LAB - VLAN CONFIGURATION SCRIPT
+! Demonstration of Distribution Layer Functions
+! =================================================================
+
+! -----------------------------------------------------------------
+! STEP 1: ACCESS SWITCH 1 (SW-ACCESS-01) VLAN CREATION
+! -----------------------------------------------------------------
+enable
+configure terminal
+hostname SW-ACCESS-01
+
+! Create VLANs
+vlan 10
+ name Students
+vlan 20
+ name Faculty
+vlan 30
+ name Administration
+exit
+
+! Assign Interfaces to VLAN 10 (Students)
+interface range FastEthernet 0/1 - 10
+ switchport mode access
+ switchport access vlan 10
+ description Student PC Ports
+ no shutdown
+exit
+
+! Assign Interfaces to VLAN 20 (Faculty)
+interface range FastEthernet 0/11 - 18
+ switchport mode access
+ switchport access vlan 20
+ description Faculty Workstation Ports
+ no shutdown
+exit
+
+! Assign Interfaces to VLAN 30 (Admin)
+interface range FastEthernet 0/19 - 24
+ switchport mode access
+ switchport access vlan 30
+ description Admin Server/PC Ports
+ no shutdown
+exit
+end
+write memory
+
+! -----------------------------------------------------------------
+! STEP 2: ACCESS SWITCH 2 (SW-ACCESS-02) VLAN CREATION
+! -----------------------------------------------------------------
+enable
+configure terminal
+hostname SW-ACCESS-02
+
+vlan 10
+ name Students
+vlan 20
+ name Faculty
+vlan 30
+ name Administration
+exit
+
+interface range FastEthernet 0/1 - 10
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+interface range FastEthernet 0/11 - 18
+ switchport mode access
+ switchport access vlan 20
+ no shutdown
+exit
+
+interface range FastEthernet 0/19 - 24
+ switchport mode access
+ switchport access vlan 30
+ no shutdown
+exit
+end
+write memory
+
+! -----------------------------------------------------------------
+! VERIFICATION COMMANDS
+! -----------------------------------------------------------------
+! show vlan brief
+! show interfaces switchport

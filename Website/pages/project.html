@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Overview & Objectives | Distribution Layer Project</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        <div class="brand-icon">D</div>
+        <span>Distribution Layer Project</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="project.html" class="nav-link active">Project Overview</a></li>
+        <li><a href="architecture.html" class="nav-link">Architecture</a></li>
+        <li><a href="vlan.html" class="nav-link">VLAN & Subnets</a></li>
+        <li><a href="topology.html" class="nav-link">Topology & Lab</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-wrapper">
+
+    <div class="section-header">
+      <div class="badge badge-cyan" style="margin-bottom: 8px;">Documentation & Faculty Report</div>
+      <h1>Project Motivation & Objectives</h1>
+      <p>Detailed breakdown of problem statement and architectural scope.</p>
+    </div>
+
+    <!-- Problem Statement Card -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2 class="card-title" style="color: var(--accent-amber);">
+        <span>⚠️</span> Problem Statement & Network Bottlenecks
+      </h2>
+      <div class="card-desc" style="line-height: 1.7; color: var(--text-primary);">
+        <p style="margin-bottom: 1rem;">
+          In traditional flat enterprise network topologies, all workstations (students, faculty, and administration) reside within a single broadcast domain. This unsegmented architecture introduces severe technical issues:
+        </p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">
+          <li style="margin-bottom: 0.5rem;"><strong>Broadcast Storms:</strong> High volume ARP, DHCP, and discovery traffic floods every switch port, degrading network speed.</li>
+          <li style="margin-bottom: 0.5rem;"><strong>Security & Eavesdropping Risks:</strong> Students can easily intercept unencrypted administrative traffic or launch ARP spoofing attacks.</li>
+          <li style="margin-bottom: 0.5rem;"><strong>Routing Overhead:</strong> Connecting Access Switches directly to a single Core Router creates severe processing bottlenecks on the central gateway.</li>
+        </ul>
+        <p>
+          <strong>The Solution:</strong> Deploying a dedicated <strong>Distribution Layer</strong> equipped with a Layer 3 Multilayer Switch to enforce logical VLAN segmentation, perform wire-speed Inter-VLAN routing, and apply centralized security policies.
+        </p>
+      </div>
+    </div>
+
+    <!-- Objectives & Motivation Grid -->
+    <div class="card-grid" style="margin-bottom: 2.5rem;">
+
+      <div class="card">
+        <h3 class="card-title">🎯 Core Project Objectives</h3>
+        <ul style="padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.7;">
+          <li>Construct a 3-tier hierarchical enterprise network in Cisco Packet Tracer.</li>
+          <li>Configure VLAN 10 (Students), VLAN 20 (Faculty), and VLAN 30 (Admin).</li>
+          <li>Implement 802.1Q trunk links across switch interconnections.</li>
+          <li>Deploy Switched Virtual Interfaces (SVIs) for Inter-VLAN routing.</li>
+          <li>Develop standard/extended Access Control Lists (ACLs) for access control.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💡 Technical Motivation</h3>
+        <p class="card-desc">
+          Understanding the Distribution Layer is essential for modern network engineers. It acts as the intelligent boundary between the high-speed unthrottled Core Layer and the user-facing Access Layer.
+        </p>
+        <div style="background: rgba(0, 243, 255, 0.05); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--accent-cyan-glow);">
+          <span style="color: var(--accent-cyan); font-weight: 600; font-size: 0.85rem;">Distribution Layer Focus:</span>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">Policy control, security boundaries, address aggregation, and QoS enforcement occur here.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div><strong>Demonstration of Distribution Layer Functions Using Cisco Packet Tracer</strong></div>
+      <div><a href="../index.html">Back to Home</a></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

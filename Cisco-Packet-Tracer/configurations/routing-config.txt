@@ -1,0 +1,62 @@
+! =================================================================
+! CISCO PACKET TRACER LAB - SVI & INTER-VLAN ROUTING SCRIPT
+! Demonstration of Distribution Layer Functions (Layer 3 Switch)
+! =================================================================
+
+enable
+configure terminal
+hostname SW-DIST-01
+
+! Enable IP Routing globally on Layer 3 Multilayer Switch
+ip routing
+
+! -----------------------------------------------------------------
+! CREATING SWITCHED VIRTUAL INTERFACES (SVIs)
+! The Distribution Layer acts as default gateway for each VLAN
+! -----------------------------------------------------------------
+
+! VLAN 10 Gateway (Students Subnet: 192.168.10.0/24)
+interface Vlan10
+ description Gateway for Students VLAN
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+exit
+
+! VLAN 20 Gateway (Faculty Subnet: 192.168.20.0/24)
+interface Vlan20
+ description Gateway for Faculty VLAN
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+exit
+
+! VLAN 30 Gateway (Administration Subnet: 192.168.30.0/24)
+interface Vlan30
+ description Gateway for Administration VLAN
+ ip address 192.168.30.1 255.255.255.0
+ no shutdown
+exit
+
+! -----------------------------------------------------------------
+! UPLINK TO CORE ROUTER / CORE SWITCH (ROUTED PORT)
+! -----------------------------------------------------------------
+interface GigabitEthernet 0/24
+ description Uplink to Core Router / ISP
+ no switchport
+ ip address 10.0.0.2 255.255.255.252
+ no shutdown
+exit
+
+! Default Gateway Route to Core
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+
+end
+write memory
+
+! -----------------------------------------------------------------
+! VERIFICATION COMMANDS
+! -----------------------------------------------------------------
+! show ip route
+! show ip interface brief
+! ping 192.168.10.10
+! ping 192.168.20.10
+! ping 192.168.30.10

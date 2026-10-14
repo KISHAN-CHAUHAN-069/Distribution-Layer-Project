@@ -1,0 +1,70 @@
+! =================================================================
+! CISCO PACKET TRACER LAB - 802.1Q TRUNK CONFIGURATION SCRIPT
+! Demonstration of Distribution Layer Functions
+! =================================================================
+
+! -----------------------------------------------------------------
+! STEP 1: CONFIGURE TRUNK ON ACCESS SWITCH 1 (SW-ACCESS-01)
+! Upstream link connecting to Multilayer Distribution Switch (SW-DIST-01)
+! -----------------------------------------------------------------
+enable
+configure terminal
+
+interface GigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ description Trunk Link to Distribution Switch SW-DIST-01
+ no shutdown
+exit
+end
+write memory
+
+! -----------------------------------------------------------------
+! STEP 2: CONFIGURE TRUNK ON ACCESS SWITCH 2 (SW-ACCESS-02)
+! Upstream link connecting to Multilayer Distribution Switch (SW-DIST-01)
+! -----------------------------------------------------------------
+enable
+configure terminal
+
+interface GigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ description Trunk Link to Distribution Switch SW-DIST-01
+ no shutdown
+exit
+end
+write memory
+
+! -----------------------------------------------------------------
+! STEP 3: CONFIGURE TRUNKS ON DISTRIBUTION SWITCH (SW-DIST-01)
+! Downstream links to Access Switches (SW-ACCESS-01 & SW-ACCESS-02)
+! -----------------------------------------------------------------
+enable
+configure terminal
+hostname SW-DIST-01
+
+interface GigabitEthernet 0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ description Trunk Connection to SW-ACCESS-01
+ no shutdown
+exit
+
+interface GigabitEthernet 0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ description Trunk Connection to SW-ACCESS-02
+ no shutdown
+exit
+end
+write memory
+
+! -----------------------------------------------------------------
+! VERIFICATION COMMANDS
+! -----------------------------------------------------------------
+! show interfaces trunk
+! show interface gigabitEthernet 0/1 switchport

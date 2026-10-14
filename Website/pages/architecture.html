@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Tier Enterprise Architecture | Distribution Layer Focus</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        <div class="brand-icon">D</div>
+        <span>Distribution Layer Project</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="project.html" class="nav-link">Project Overview</a></li>
+        <li><a href="architecture.html" class="nav-link active">Architecture</a></li>
+        <li><a href="vlan.html" class="nav-link">VLAN & Subnets</a></li>
+        <li><a href="topology.html" class="nav-link">Topology & Lab</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-wrapper">
+
+    <div class="section-header">
+      <div class="badge badge-cyan" style="margin-bottom: 8px;">Network Architecture Specification</div>
+      <h1>The 3-Tier Enterprise Hierarchical Model</h1>
+      <p>Explaining the functional isolation between Core, Distribution, and Access Layers.</p>
+    </div>
+
+    <!-- Architecture Visual Banner -->
+    <div class="card" style="margin-bottom: 2.5rem; text-align: center;">
+      <h3 class="card-title" style="justify-content: center; margin-bottom: 1rem;">
+        📐 Network Architecture Visual Blueprint
+      </h3>
+      <div style="max-width: 850px; margin: 0 auto; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-glow);">
+        <img src="../assets/images/architecture.png" alt="3-Tier Enterprise Architecture Blueprint" style="width: 100%; height: auto; display: block;">
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 12px;">
+        Figure 1: Hierarchical Enterprise Design showcasing Core Router, Multilayer Distribution Switch, Access Switches, and Segmented End-User VLANs.
+      </p>
+    </div>
+
+    <!-- Layer Cards Stack -->
+    <div class="section-header">
+      <h2>Hierarchical Layer Breakdown</h2>
+      <p>Exploring the specific responsibilities of each network tier.</p>
+    </div>
+
+    <div class="layer-grid" style="margin-bottom: 3rem;">
+
+      <!-- Core Layer -->
+      <div class="layer-card core">
+        <div class="layer-badge">
+          <span class="badge badge-amber">Core Layer</span>
+          <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal;">High-Speed Backbone</span>
+        </div>
+        <div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 6px;">Core Layer Router (Cisco 4331 ISR)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Responsible for transport speed and reliability. Executes zero packet-filtering overhead to ensure maximum throughput between campus buildings, enterprise data centers, and external ISP internet connections.
+          </p>
+        </div>
+      </div>
+
+      <!-- Distribution Layer (MAIN FOCUS HIGHLIGHT) -->
+      <div class="layer-card distribution" style="box-shadow: 0 0 25px rgba(0, 243, 255, 0.15);">
+        <div class="layer-badge">
+          <span class="badge badge-cyan" style="font-size: 0.85rem;">★ MAIN FOCUS</span>
+          <span style="color: var(--accent-cyan); font-size: 1.25rem;">Distribution Layer</span>
+        </div>
+        <div>
+          <h3 style="font-size: 1.25rem; color: var(--accent-cyan); margin-bottom: 6px;">Multilayer L3 Switch (Cisco Catalyst 3650)</h3>
+          <p style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.6;">
+            <strong>The intelligence boundary of the enterprise network.</strong> It interconnects Access Switches to the Core Layer and performs:
+          </p>
+          <ul style="padding-left: 1.25rem; color: var(--text-secondary); margin-top: 8px; font-size: 0.9rem;">
+            <li><strong>Wire-Speed Inter-VLAN Routing:</strong> Uses Switched Virtual Interfaces (SVIs) for fast hardware packet forwarding between VLAN 10, 20, and 30.</li>
+            <li><strong>Security Policy Enforcement:</strong> Centralized Access Control Lists (ACLs) filter malicious or unauthorized inter-department traffic.</li>
+            <li><strong>Broadcast Domain Demarcation:</strong> Prevents Layer 2 loops and ARP broadcast storms from leaking into the core backbone.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Access Layer -->
+      <div class="layer-card access">
+        <div class="layer-badge">
+          <span class="badge badge-blue">Access Layer</span>
+          <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal;">End-User Switchport</span>
+        </div>
+        <div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 6px;">Access Switches (Cisco Catalyst 2960)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Provides port connectivity for end devices. Enforces Port Security, assigns switchports to VLANs (`switchport access vlan X`), and connects upstream via IEEE 802.1Q trunks.
+          </p>
+        </div>
+      </div>
+
+      <!-- End Devices Layer -->
+      <div class="layer-card devices">
+        <div class="layer-badge">
+          <span class="badge badge-purple">End Devices</span>
+          <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal;">Segmented Hosts</span>
+        </div>
+        <div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 6px;">User Computers, Laptops & Admin Servers</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Endpoints partitioned logically into VLAN 10 (Students), VLAN 20 (Faculty), and VLAN 30 (Administration Servers).
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SVI Configuration Technical Deep Dive -->
+    <div class="card">
+      <h3 class="card-title" style="color: var(--accent-cyan);">
+        ⚙️ How Switched Virtual Interfaces (SVIs) Work at the Distribution Layer
+      </h3>
+      <p class="card-desc">
+        Instead of routing packets out of physical router interfaces (Router-on-a-Stick), a Multilayer Switch creates virtual Layer 3 interfaces tied to each VLAN ID.
+      </p>
+      
+      <div class="code-block">
+        <div class="code-header">Cisco Catalyst 3650 - SVI Inter-VLAN Routing Script</div>
+        <div class="code-content">SW-DIST-01(config)# ip routing
+SW-DIST-01(config)# interface Vlan10
+SW-DIST-01(config-if)# description Gateway for Students Subnet
+SW-DIST-01(config-if)# ip address 192.168.10.1 255.255.255.0
+SW-DIST-01(config-if)# no shutdown
+SW-DIST-01(config-if)# exit
+
+SW-DIST-01(config)# interface Vlan20
+SW-DIST-01(config-if)# description Gateway for Faculty Subnet
+SW-DIST-01(config-if)# ip address 192.168.20.1 255.255.255.0
+SW-DIST-01(config-if)# no shutdown</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div><strong>Demonstration of Distribution Layer Functions Using Cisco Packet Tracer</strong></div>
+      <div><a href="../index.html">Back to Home</a></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
